@@ -41,3 +41,21 @@ vulnerabilities in your projects to determine ticket priority.
 
 Also, the factors and their scores are pre-populated with the defaults from the methodology but
 it is possible to add/change/delete the evaluation factors to fit to your organisation.
+
+### List of risks
+
+![risks-index.png](risks-index.png)
+
+### Show a risk
+
+Edit the factors by clicking on them
+
+![risks-show.png](risks-show.png)
+
+### Customize the factors
+
+![customize.png](customize.png)
+
+### Use projects to group vulnerabilities
+
+![projects.png](projects.png)
