@@ -1,0 +1,41 @@
+<% only ||= [] %>
+<% except ||= [] %>
+
+<div id="vulnerabilities">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <% if only.include?(:project) && !except.include?(:project) %><td>Project</td><% end %>
+        <th>Name</th>
+        <th>Links</th>
+        <th>Risks</th>
+        <th>Created At</th>
+        <th width=1>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% vulnerabilities.each do |vulnerability| %>
+        <tr class="align-middle">
+          <td><%= link_to "##{vulnerability.id}", vulnerability %></td>
+          <% if only.include?(:project) && !except.include?(:project) %><td><%= link_to vulnerability.project.name, vulnerability.project %></td><% end %>
+          <td><%= link_to vulnerability.name, vulnerability %></td>
+          <td><%= vulnerability.links.split("\n").map_with_index {|l, i| link_to "#{i}<i class='bi bi-box-arrow-up-right'></i>", l.strip! } rescue '' %></td>
+          <td>
+              <a class="rounded fw-bold m-0 p-1 bg-secondary" href="<%= risks_path(severity: 0, vulnerability_id: vulnerability.id ) %>"><span><%= vulnerability.risks.where(severity: 0).count %> Incomplete</span></a>
+              <a class="rounded fw-bold m-0 p-1 bg-white link-danger" href="<%= risks_path(severity: 9, vulnerability_id: vulnerability.id ) %>"><span><%= vulnerability.risks.where(severity: 9).count %> Critical</span></a>
+              <a class="rounded fw-bold m-0 p-1 bg-danger" href="<%= risks_path(severity: 6, vulnerability_id: vulnerability.id ) %>"><span><%= vulnerability.risks.where(severity: 6).count %> High</span></a>
+              <a class="rounded m-0 p-1 bg-warning text-bg-warning" href="<%= risks_path(severity: 4, vulnerability_id: vulnerability.id ) %>"><span><%= vulnerability.risks.where(severity: 4).count %> Medium</span></a>
+              <a class="rounded m-0 p-1 bg-primary link-white" href="<%= risks_path(severity: [2,3], vulnerability_id: vulnerability.id ) %>"><span><%= vulnerability.risks.where(severity: [2, 3]).count %> Low</span></a>
+              <a class="rounded m-0 p-1 bg-success" href="<%= risks_path(severity: 1, vulnerability_id: vulnerability.id ) %>"><span><%= vulnerability.risks.where(severity: 1).count %> Note</span></a>
+          </td>
+          <td><%= vulnerability.created_at %></td>
+          <td>
+            <%= link_to "E", edit_vulnerability_path(vulnerability), class: "btn btn-sm btn-primary" %>
+            <%= link_to "D", vulnerability, method: :delete, data: { confirm: 'Are you sure you want to delete this vulnerability?' }, class: "btn btn-sm btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,12 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @vulnerability %>
+
+<%= render partial: "risks/table", locals: { risks: @vulnerability.risks } %>
+
+<div>
+  <%= link_to "Edit this vulnerability", edit_vulnerability_path(@vulnerability) %> |
+  <%= link_to "Back to vulnerabilities", vulnerabilities_path %>
+
+  <%= button_to "Destroy this vulnerability", @vulnerability, method: :delete %>
+</div>
