@@ -9,7 +9,13 @@ This will start the application:
 
     $ git clone https://github.com/penguinpowernz/owasp-risk
     $ cd owasp-risk
-    $ docker run --name owasp-risk -p 3000:3000 -v "$(pwd):/app" -it -w /app ruby bash -c 'bundle && rails s -b 0.0.0.0'
+    $ docker run --name owasp-risk \
+        -p 3000:3000 \
+        -v "$(pwd):/app" \
+        -it \
+        -w /app \
+        ruby \
+        scripts/docker-entrypoint rails server -b 0.0.0.0
 
 ## Usage
 
