@@ -1,0 +1,138 @@
+<%= form_with(model: @risk) do |form| %>
+  <% if @risk.errors.any? %>
+    <div style="color: red">
+      <h3><%= pluralize(@risk.errors.count, "error") %> prohibited this risk from being saved:</h3>
+
+      <ul>
+        <% @risk.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h2>Likelihood</h2>
+
+  <div class="row">
+    <div class="col-md-6">
+
+      <h3>Threat Agent</h3>
+      <p>The first set of factors are related to the threat agent involved. The goal here is to estimate the likelihood of a successful attack by this group of threat agents. Use the worst-case threat agent.</p>
+
+      <div>
+        <%= form.label :threat_agent_id, style: "display: block", class: "fw-bold mb-1 mt-2" %>
+        <%= form.select :threat_agent_id, @agents.map { |t| ["#{t.score} - #{t.name}", t.id] }, {}, {class: "form-select"} %>
+      </div>
+
+      <div>
+        <%= form.label :agent_motive_id, "How motivated is this group of threat agents to find and exploit this vulnerability?", style: "display: block", class: "fw-bold mb-1 mt-2" %>
+        <%= form.select :agent_motive_id, @motives.map { |m| ["#{m.score} - #{m.name}", m.id] }, {}, {class: "form-select"} %>
+      </div>
+
+      <div>
+        <%= form.label :agent_opportunity_id, "What resources and opportunities are required for this group of threat agents to find and exploit this vulnerability?", style: "display: block", class: "fw-bold mb-1 mt-2" %>
+        <%= form.select :agent_opportunity_id, @opportunities.map { |o| ["#{o.score} - #{o.name}", o.id] }, {}, {class: "form-select"} %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <h3>Vulnerability Factor</h3>
+
+      <p>The next set of factors are related to the vulnerability involved. The goal here is to estimate the likelihood of the particular vulnerability involved being discovered and exploited. Assume the threat agent selected above.</p>
+
+      <div>
+          <%= form.label  "Ease of Discovery - How easy is it for this group of threat agents to discover this vulnerability?", style: "display: block;", class: "fw-bold mb-1 mt-2" %>
+          <%= form.select :vf_eod_id, @vf_eod.map {|x| ["#{x.score} - #{x.name}", x.id]}, {}, {class: "form-select"} %>
+      </div>
+
+      <div>
+          <%= form.label  "Ease of Exploit - How easy is it for this group of threat agents to actually exploit this vulnerability?", style: "display: block;", class: "fw-bold mb-1 mt-2" %>
+          <%= form.select :vf_eo_e_id, @vf_eo_e.map {|x| ["#{x.score} - #{x.name}", x.id]}, {}, {class: "form-select"} %>
+      </div>
+
+      <div>
+          <%= form.label  "Awareness - How well known is this vulnerability to this group of threat agents?", style: "display: block;", class: "fw-bold mb-1 mt-2" %>
+          <%= form.select :vf_awareness_id, @vf_awareness.map {|x| ["#{x.score} - #{x.name}", x.id]}, {}, {class: "form-select"} %>
+      </div>
+
+      <div>
+          <%= form.label  "Intrusion Detection - How likely is an exploit to be detected?", style: "display: block;", class: "fw-bold mb-1 mt-2" %>
+          <%= form.select :vf_ids_id, @vf_ids.map {|x| ["#{x.score} - #{x.name}", x.id]}, {}, {class: "form-select"} %>
+      </div>
+    </div>
+  </div>
+
+  <h2>Impact</h2>
+
+  <div class="row">
+    <div class="col-md-6">
+ 
+      <h3>Technical Impact</h3>
+
+      <p>
+          Technical impact can be broken down into factors aligned with the traditional security areas of concern: confidentiality, integrity, availability, and accountability. The goal is to estimate the magnitude of the impact on the system if the vulnerability were to be exploited.
+      </p>
+
+      <div>
+          <%= form.label  "Loss of Accountability - Are the threat agents actions traceable to an individual?", style: "display: block;", class: "fw-bold mb-1 mt-2" %>
+          <%= form.select :ti_loac_id, @ti_loac_impacts.map {|x| ["#{x.score} - #{x.name}", x.id]}, {}, {class: "form-select"} %>
+      </div>
+
+      <div>
+          <%= form.label  "Loss of Availability - How much service could be lost and how vital is it?", style: "display: block;", class: "fw-bold mb-1 mt-2" %>
+          <%= form.select :ti_loav_id, @ti_loav_impacts.map {|x| ["#{x.score} - #{x.name}", x.id]}, {}, {class: "form-select"} %>
+      </div>
+
+      <div>
+          <%= form.label  "Loss of Confidentiality - How much data could be disclosed and how sensitive is it?", style: "display: block;", class: "fw-bold mb-1 mt-2" %>
+          <%= form.select :ti_loc_id, @ti_loc_impacts.map {|x| ["#{x.score} - #{x.name}", x.id]}, {}, {class: "form-select"} %>
+      </div>
+
+      <div>
+          <%= form.label  "Loss of Integrity - How much data could be corrupted and how damaged is it?", style: "display: block;", class: "fw-bold mb-1 mt-2" %>
+          <%= form.select :ti_loi_id, @ti_loi_impacts.map {|x| ["#{x.score} - #{x.name}", x.id]}, {}, {class: "form-select"} %>
+      </div>
+    </div>
+    <div class="col-md-6">
+
+      <h3>Business Impact</h3>
+
+      <p>
+  The business impact stems from the technical impact, but requires a deep understanding of what is important to the company running the application. In general, you should be aiming to support your risks with business impact, particularly if your audience is executive level. The business risk is what justifies investment in fixing security problems.
+      </p>
+
+      <p>
+  Many companies have an asset classification guide and/or a business impact reference to help formalize what is important to their business. These standards can help you focus on what’s truly important for security. If these aren’t available, then it is necessary to talk with people who understand the business to get their take on what's important.
+      </p>
+
+      <p>
+      The factors below are common areas for many businesses, but this area is even more unique to a company than the factors related to threat agent, vulnerability, and technical impact.
+      </p>
+
+      <div>
+          <%= form.label "Financial Damage - How much financial damage will result from an exploit?", style: "display: block;", class: "fw-bold mb-1 mt-2" %>
+          <%= form.select :bi_findam_id, @bi_findam_impacts.map {|x| ["#{x.score} - #{x.name}", x.id]}, {}, {class: "form-select"} %>
+      </div>
+
+      <div>
+          <%= form.label "Reputation Damage - Would an exploit result in reputation damage that would harm the business?", style: "display: block;", class: "fw-bold mb-1 mt-2" %>
+          <%= form.select :bi_repdam_id, @bi_repdam_impacts.map {|x| ["#{x.score} - #{x.name}", x.id]}, {}, {class: "form-select"} %>
+      </div>
+
+      <div>
+          <%= form.label "Non-compliance - How much exposure does non-compliance introduce?", style: "display: block;", class: "fw-bold mb-1 mt-2" %>
+          <%= form.select :bi_ncomp_id, @bi_ncomp_impacts.map {|x| ["#{x.score} - #{x.name}", x.id]}, {}, {class: "form-select"} %>
+      </div>
+
+      <div>
+          <%= form.label "Privacy Violation - How much personally identifiable information could be disclosed?", style: "display: block;", class: "fw-bold mb-1 mt-2" %>
+          <%= form.select :bi_pv_id, @bi_pv_impacts.map {|x| ["#{x.score} - #{x.name}", x.id]}, {}, {class: "form-select"} %>
+      </div>
+    </div>
+  </div>
+
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

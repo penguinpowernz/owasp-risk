@@ -1,0 +1,47 @@
+<%= form_with(model: risk) do |form| %>
+  <% if risk.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(risk.errors.count, "error") %> prohibited this risk from being saved:</h2>
+
+      <ul>
+        <% risk.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :desc, style: "display: block" %>
+    <%= form.text_area :desc %>
+  </div>
+
+  <div>
+    <%= form.label :threat_agent_id, style: "display: block" %>
+    <%= form.number_field :threat_agent_id %>
+  </div>
+
+  <div>
+    <%= form.label :vulnerability_factor_id, style: "display: block" %>
+    <%= form.number_field :vulnerability_factor_id %>
+  </div>
+
+  <div>
+    <%= form.label :technical_impact_id, style: "display: block" %>
+    <%= form.number_field :technical_impact_id %>
+  </div>
+
+  <div>
+    <%= form.label :business_impact_id, style: "display: block" %>
+    <%= form.number_field :business_impact_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

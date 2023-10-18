@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @risk %>
+
+<div>
+  <%= link_to "Edit this risk", edit_risk_path(@risk) %> |
+  <%= link_to "Back to risks", risks_path %>
+
+  <%= button_to "Destroy this risk", @risk, method: :delete %>
+</div>

@@ -1,0 +1,462 @@
+<h1>Risk Evaluation</h1>
+    
+<div class="row">
+  <div class="col-md-5 mb-3"> 
+    <div class="card">
+      <div class="card-header">
+        <h2>Vulnerability: <%= link_to "##{risk.vulnerability.id} #{risk.vulnerability.name}", risk.vulnerability %></h2>
+      </div>
+      <div class="card-body">
+        <p><%= risk.vulnerability.desc %></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2 text-center fs-1">
+    <i class="bi bi-arrow-left"></i> VS <i class="bi bi-arrow-right"></i>
+  </div>
+  <div class="col-md-5">
+    <div class="card">
+      <div class="card-header">
+        <h2>Threat Agent: <%= link_to risk.threat_agent.name, risk.threat_agent %></h2>
+      </div>
+      <div class="card-body">
+        <p><%= risk.threat_agent.desc %></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-3 bg-<%= severity_class_name(risk.severity) %> text-bg-<%= severity_class_name(risk.severity) %>">
+  <div class="card-body p-1 text-center">
+    <h2 class="m-0">Severity = <%= @risk.severity %> <%= severity_desc(risk, :severity) %></h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6 mb-3"> 
+    <div class="card bg-<%= score_class_name(risk.likelihood) %> text-bg-<%= score_class_name(risk.likelihood) %>">
+        <div class="card-body p-1 text-center">
+          <h2 class="m-0">Likelihood = <%= @risk.likelihood %></h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card bg-<%= score_class_name(risk.business_impact) %> text-bg-<%= score_class_name(risk.business_impact) %>">
+      <div class="card-body p-1 text-center">
+        <h2 class="m-0">Impact = <%= @risk.business_impact %></h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6 mb-3">
+    <div class="card bg-<%= score_class_name(risk.threat_agent_likelihood) %> text-bg-<%= score_class_name(risk.threat_agent_likelihood) %>">
+      <div class="card-body">
+        <p class="m-0 float-end fs-4 bg-<%= score_class_name(risk.threat_agent_likelihood) %>">score = <%= @risk.threat_agent_likelihood %></p>
+        <h3>Threat Agent <%= link_to risk.threat_agent.try(:name), risk.threat_agent, class: "text-white" %></h3>
+        <table class="table table-small">
+          <tbody>
+            <tr class="table-<%= score_class_name(risk.threat_agent.size.score) %>"><td>Size</td><td><%= risk.threat_agent.size.try(:name) %></td><td><%= risk.threat_agent.size.score %></td></tr>
+            <tr class="table-<%= score_class_name(risk.threat_agent.skill.score) %>"%><td>Skill</td><td><%= risk.threat_agent.skill.try(:name) %></td><td><%= risk.threat_agent.skill.score %></td></tr>
+            <tr data-bs-toggle="modal" data-bs-target="#changeMotiveModal" class="risk_factor table-<%= score_class_name(risk.agent_motive.try(:score)) %>"%><td>Motivation</td><td><%= risk.agent_motive.try(:name) %></td><td><%= risk.agent_motive.try(:score) %></td></tr>
+            <tr data-bs-toggle="modal" data-bs-target="#changeOpportunityModal" class="risk_factor table-<%= score_class_name(risk.agent_opportunity.try(:score)) %>"%><td>Opportunity</td><td><%= risk.agent_opportunity.try(:name) %></td><td><%= risk.agent_opportunity.try(:score) %></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="col-md-6">
+    <div class="card bg-<%= score_class_name(risk.business_impact) %> text-bg-<%= score_class_name(risk.business_impact) %>">
+      <div class="card-body">
+        <p class="m-0 float-end fs-4 bg-<%= score_class_name(risk.business_impact) %>">score = <%= @risk.business_impact %></p>
+        <h3>Business Impact</h3>
+        <table class="table table-small">
+          <tbody>
+            <tr data-bs-toggle="modal" data-bs-target="#changeFindamModal" class="risk_factor table-<%= score_class_name(risk.bi_findam.try(:score)) %>"><td>Financial Damage</td><td><%= risk.bi_findam.try(:name) %></td><td><%= risk.bi_findam.try(:score) %></td></tr>
+            <tr data-bs-toggle="modal" data-bs-target="#changeRepdamModal" class="risk_factor table-<%= score_class_name(risk.bi_repdam.try(:score)) %>"%><td>Reputation Damage</td><td><%= risk.bi_repdam.try(:name) %></td><td><%= risk.bi_repdam.try(:score) %></td></tr>
+            <tr data-bs-toggle="modal" data-bs-target="#changeNcompModal" class="risk_factor table-<%= score_class_name(risk.bi_ncomp.try(:score)) %>"%><td>Non-Compliance</td><td><%= risk.bi_ncomp.try(:name) %></td><td><%= risk.bi_ncomp.try(:score) %></td></tr>
+            <tr data-bs-toggle="modal" data-bs-target="#changePVModal" class="risk_factor table-<%= score_class_name(risk.bi_pv.try(:score)) %>"%><td>Privacy Violation</td><td><%= risk.bi_pv.try(:name) %></td><td><%= risk.bi_pv.try(:score) %></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card bg-<%= score_class_name(risk.vf_likelihood) %> text-bg-<%= score_class_name(risk.vf_likelihood) %>">
+      <div class="card-body">
+        <p class="m-0  float-end fs-4 bg-<%= score_class_name(risk.vf_likelihood) %>">score = <%= @risk.vf_likelihood %></p>
+        <h3>Vulnerability Factors</h3>
+        <table class="table table-small">
+          <tbody>
+            <tr data-bs-toggle="modal" data-bs-target="#changeEODModal" class="risk_factor table-<%= score_class_name(risk.vf_eod.try(:score)) %>"><td>Ease of Discovery</td><td><%= risk.vf_eod.try(:name) %></td><td><%= risk.vf_eod.try(:score) %></td></tr>
+            <tr data-bs-toggle="modal" data-bs-target="#changeEOEModal" class="risk_factor table-<%= score_class_name(risk.vf_eo_e.try(:score)) %>"%><td>Ease of Exploit</td><td><%= risk.vf_eo_e.try(:name) %></td><td><%= risk.vf_eo_e.try(:score) %></td></tr>
+            <tr data-bs-toggle="modal" data-bs-target="#changeAwarenessModal" class="risk_factor table-<%= score_class_name(risk.vf_awareness.try(:score)) %>"%><td>Awareness</td><td><%= risk.vf_awareness.try(:name) %></td><td><%= risk.vf_awareness.try(:score) %></td></tr>
+            <tr data-bs-toggle="modal" data-bs-target="#changeIDsModal" class="risk_factor table-<%= score_class_name(risk.vf_ids.try(:score)) %>"%><td>Intrusion Detection</td><td><%= risk.vf_ids.try(:name) %></td><td><%= risk.vf_ids.try(:score) %></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card bg-<%= score_class_name(risk.technical_impact) %> text-bg-<%= score_class_name(risk.technical_impact) %>">
+      <div class="card-body">
+        <p class="m-0 float-end fs-4 bg-<%= score_class_name(risk.technical_impact) %> text-bg-<%= score_class_name(risk.technical_impact) %>">score = <%= @risk.technical_impact %></p>
+        <h3>Technical Impact</h3>
+        <table class="table table-small">
+          <tbody>
+            <tr data-bs-toggle="modal" data-bs-target="#changeLocImpactModal" class="risk_factor table-<%= score_class_name(risk.ti_loc.try(:score)) %>"><td>Loss of Confidentiality</td><td><%= risk.ti_loc.try(:name) %></td><td><%= risk.ti_loc.try(:score) %></td></tr>
+            <tr data-bs-toggle="modal" data-bs-target="#changeLoiImpactModal" class="risk_factor table-<%= score_class_name(risk.ti_loi.try(:score)) %>"%><td>Loss of Integrity</td><td><%= risk.ti_loi.try(:name) %></td><td><%= risk.ti_loi.try(:score) %></td></tr>
+            <tr data-bs-toggle="modal" data-bs-target="#changeLoavImpactModal" class="risk_factor table-<%= score_class_name(risk.ti_loav.try(:score)) %>"%><td>Loss of Availability</td><td><%= risk.ti_loav.try(:name) %></td><td><%= risk.ti_loav.try(:score) %></td></tr>
+            <tr data-bs-toggle="modal" data-bs-target="#changeLoacImpactModal" class="risk_factor table-<%= score_class_name(risk.ti_loac.try(:score)) %>"%><td>Loss of Accountability</td><td><%= risk.ti_loac.try(:name) %></td><td><%= risk.ti_loac.try(:score) %></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="changeMotiveModal" tabindex="-1" aria-labelledby="changeMotiveModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_with(model: @risk) do |form| %>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="changeMotiveModalLabel">Change Agent Motivation</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% AgentMotive.all.each_with_index do |f, i| %>
+            <input type="radio" class="btn-check" name="risk[agent_motive_id]" id="agent_motive_id<%= f.id %>" autocomplete="off" value="<%= f.id %>" <%= @risk.agent_motive_id == f.id ? "checked" : "" %>>
+            <label class="btn" for="agent_motive_id<%= f.id %>"><%= f.score %> - <%= f.name %></label>
+            <br/>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= form.submit "Save", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="changeOpportunityModal" tabindex="-1" aria-labelledby="changeOpportunityModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_with(model: @risk) do |form| %>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="changeOpportunityModalLabel">Change Agent Opportunity</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% AgentOpportunity.all.each_with_index do |f, i| %>
+            <input type="radio" class="btn-check" name="risk[agent_opportunity_id]" id="agent_opportunity_id<%= f.id %>" autocomplete="off" value="<%= f.id %>" <%= @risk.agent_opportunity_id == f.id ? "checked" : "" %>>
+            <label class="btn" for="agent_opportunity_id<%= f.id %>"><%= f.score %> - <%= f.name %></label>
+            <br/>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= form.submit "Save", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="changeEODModal" tabindex="-1" aria-labelledby="changeEODModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_with(model: @risk) do |form| %>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="changeEODModalLabel">Change Ease of Discovery</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% VulnerabilityEod.all.each_with_index do |f, i| %>
+            <input type="radio" class="btn-check" name="risk[vf_eod_id]" id="vf_eod_id<%= f.id %>" autocomplete="off" value="<%= f.id %>" <%= @risk.vf_eod_id == f.id ? "checked" : "" %>>
+            <label class="btn" for="vf_eod_id<%= f.id %>"><%= f.score %> - <%= f.name %></label>
+            <br/>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= form.submit "Save", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="changeEOEModal" tabindex="-1" aria-labelledby="changeEOEModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_with(model: @risk) do |form| %>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="changeEOEModalLabel">Change Ease of Exploit</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% VulnerabilityEoE.all.each_with_index do |f, i| %>
+            <input type="radio" class="btn-check" name="risk[vf_eo_e_id]" id="vf_eo_e_id<%= f.id %>" autocomplete="off" value="<%= f.id %>" <%= @risk.vf_eo_e_id == f.id ? "checked" : "" %>>
+            <label class="btn" for="vf_eo_e_id<%= f.id %>"><%= f.score %> - <%= f.name %></label>
+            <br/>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= form.submit "Save", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="changeAwarenessModal" tabindex="-1" aria-labelledby="changeAwarenessModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_with(model: @risk) do |form| %>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="changeAwarenessModalLabel">Change Vulnerability Awareness</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% VulnerabilityAwareness.all.each_with_index do |f, i| %>
+            <input type="radio" class="btn-check" name="risk[vf_awareness_id]" id="vf_awareness_id<%= f.id %>" autocomplete="off" value="<%= f.id %>" <%= @risk.vf_awareness_id == f.id ? "checked" : "" %>>
+            <label class="btn" for="vf_awareness_id<%= f.id %>"><%= f.score %> - <%= f.name %></label>
+            <br/>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= form.submit "Save", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>  
+
+<div class="modal fade" id="changeIDsModal" tabindex="-1" aria-labelledby="changeIDsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_with(model: @risk) do |form| %>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="changeIDsModalLabel">Change Intrusion Detection</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% VulnerabilityId.all.each_with_index do |f, i| %>
+            <input type="radio" class="btn-check" name="risk[vf_ids_id]" id="vf_ids_id<%= f.id %>" autocomplete="off" value="<%= f.id %>" <%= @risk.vf_ids_id == f.id ? "checked" : "" %>>
+            <label class="btn" for="vf_ids_id<%= f.id %>"><%= f.score %> - <%= f.name %></label>
+            <br/>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= form.submit "Save", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="changeLocImpactModal" tabindex="-1" aria-labelledby="changeLocImpactModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_with(model: @risk) do |form| %>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="changeLocImpactModalLabel">Change Loss of Confidentiality</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% LocImpact.all.each_with_index do |f, i| %>
+            <input type="radio" class="btn-check" name="risk[ti_loc_id]" id="ti_loc_id<%= f.id %>" autocomplete="off" value="<%= f.id %>" <%= @risk.ti_loc_id == f.id ? "checked" : "" %>>
+            <label class="btn" for="ti_loc_id<%= f.id %>"><%= f.score %> - <%= f.name %></label>
+            <br/>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= form.submit "Save", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="changeLoavImpactModal" tabindex="-1" aria-labelledby="changeLoavImpactModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_with(model: @risk) do |form| %>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="changeLoavImpactModalLabel">Change Loss of Availability</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% LoavImpact.all.each_with_index do |f, i| %>
+            <input type="radio" class="btn-check" name="risk[ti_loav_id]" id="ti_loav_id<%= f.id %>" autocomplete="off" value="<%= f.id %>" <%= @risk.ti_loav_id == f.id ? "checked" : "" %>>
+            <label class="btn" for="ti_loav_id<%= f.id %>"><%= f.score %> - <%= f.name %></label>
+            <br/>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= form.submit "Save", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="changeLoiImpactModal" tabindex="-1" aria-labelledby="changeLoiImpactModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_with(model: @risk) do |form| %>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="changeLoiImpactModalLabel">Change Loss of Integrity</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% LoiImpact.all.each_with_index do |f, i| %>
+            <input type="radio" class="btn-check" name="risk[ti_loi_id]" id="ti_loi_id<%= f.id %>" autocomplete="off" value="<%= f.id %>" <%= @risk.ti_loi_id == f.id ? "checked" : "" %>>
+            <label class="btn" for="ti_loi_id<%= f.id %>"><%= f.score %> - <%= f.name %></label>
+            <br/>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= form.submit "Save", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="changeLoacImpactModal" tabindex="-1" aria-labelledby="changeLoacImpactModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_with(model: @risk) do |form| %>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="changeLoacImpactModalLabel">Change Loss of Confidentiality</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% LoacImpact.all.each_with_index do |f, i| %>
+            <input type="radio" class="btn-check" name="risk[ti_loac_id]" id="ti_loac_id<%= f.id %>" autocomplete="off" value="<%= f.id %>" <%= @risk.ti_loac_id == f.id ? "checked" : "" %>>
+            <label class="btn" for="ti_loac_id<%= f.id %>"><%= f.score %> - <%= f.name %></label>
+            <br/>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= form.submit "Save", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="changeFindamModal" tabindex="-1" aria-labelledby="changeFindamModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_with(model: @risk) do |form| %>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="changeFindamModalLabel">Change Financial Damage</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% FinancialDamageImpact.all.each_with_index do |f, i| %>
+            <input type="radio" class="btn-check" name="risk[bi_findam_id]" id="bi_findam_id<%= f.id %>" autocomplete="off" value="<%= f.id %>" <%= @risk.bi_findam_id == f.id ? "checked" : "" %>>
+            <label class="btn" for="bi_findam_id<%= f.id %>"><%= f.score %> - <%= f.name %></label>
+            <br/>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= form.submit "Save", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="changeRepdamModal" tabindex="-1" aria-labelledby="changeRepdamModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_with(model: @risk) do |form| %>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="changeRepdamModalLabel">Change Reputation Damage</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% ReputationDamageImpact.all.each_with_index do |f, i| %>
+            <input type="radio" class="btn-check" name="risk[bi_repdam_id]" id="bi_repdam_id<%= f.id %>" autocomplete="off" value="<%= f.id %>" <%= @risk.bi_repdam_id == f.id ? "checked" : "" %>>
+            <label class="btn" for="bi_repdam_id<%= f.id %>"><%= f.score %> - <%= f.name %></label>
+            <br/>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= form.submit "Save", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="changeNcompModal" tabindex="-1" aria-labelledby="changeNcompModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_with(model: @risk) do |form| %>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="changeNcompModalLabel">Change Non-Compliance</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% NonComplianceImpact.all.each_with_index do |f, i| %>
+            <input type="radio" class="btn-check" name="risk[bi_ncomp_id]" id="bi_ncomp_id<%= f.id %>" autocomplete="off" value="<%= f.id %>" <%= @risk.bi_ncomp_id == f.id ? "checked" : "" %>>
+            <label class="btn" for="bi_ncomp_id<%= f.id %>"><%= f.score %> - <%= f.name %></label>
+            <br/>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= form.submit "Save", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="changePVModal" tabindex="-1" aria-labelledby="changePvModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_with(model: @risk) do |form| %>
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="changePvModalLabel">Change Privacy Violation</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% PrivacyViolationImpact.all.each_with_index do |f, i| %>
+            <input type="radio" class="btn-check" name="risk[bi_pv_id]" id="bi_pv_id<%= f.id %>" autocomplete="off" value="<%= f.id %>" <%= @risk.bi_pv_id == f.id ? "checked" : "" %>>
+            <label class="btn" for="bi_pv_id<%= f.id %>"><%= f.score %> - <%= f.name %></label>
+            <br/>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= form.submit "Save", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="float-end">
+<%= link_to "Incomplete", risks_path(severity: -1), class: "btn btn-sm btn-secondary" %>
+<%= link_to "Critical", risks_path(severity: 9), class: "btn btn-sm btn-black text-danger border-danger" %>
+<%= link_to "High", risks_path(severity: 6), class: "btn btn-sm btn-danger" %>
+<%= link_to "Medium", risks_path(severity: 4), class: "btn btn-sm btn-warning" %>
+<%= link_to "Low", risks_path(severity: [2, 3]), class: "btn btn-sm btn-primary" %>
+<%= link_to "Note", risks_path(severity: 1), class: "btn btn-sm btn-success" %>
+</div>
+
+<h1>Risks
+    <%= link_to raw('<i class="bi bi-plus"></i>'), new_risk_path, class: "btn btn-sm btn-primary" %>
+</h1>
+
+<%= render partial: "table", locals: { risks: @risks } %>
+
+
