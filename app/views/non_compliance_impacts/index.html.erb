@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Non compliance impacts</h1>
+
+<div id="non_compliance_impacts">
+  <% @non_compliance_impacts.each do |non_compliance_impact| %>
+    <%= render non_compliance_impact %>
+    <p>
+      <%= link_to "Show this non compliance impact", non_compliance_impact %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New non compliance impact", new_non_compliance_impact_path %>

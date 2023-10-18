@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Financial damage impacts</h1>
+
+<div id="financial_damage_impacts">
+  <% @financial_damage_impacts.each do |financial_damage_impact| %>
+    <%= render financial_damage_impact %>
+    <p>
+      <%= link_to "Show this financial damage impact", financial_damage_impact %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New financial damage impact", new_financial_damage_impact_path %>

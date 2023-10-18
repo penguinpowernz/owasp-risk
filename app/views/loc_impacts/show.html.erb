@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @loc_impact %>
+
+<div>
+  <%= link_to "Edit this loc impact", edit_loc_impact_path(@loc_impact) %> |
+  <%= link_to "Back to loc impacts", loc_impacts_path %>
+
+  <%= button_to "Destroy this loc impact", @loc_impact, method: :delete %>
+</div>

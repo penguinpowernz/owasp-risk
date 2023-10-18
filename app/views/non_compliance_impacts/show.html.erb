@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @non_compliance_impact %>
+
+<div>
+  <%= link_to "Edit this non compliance impact", edit_non_compliance_impact_path(@non_compliance_impact) %> |
+  <%= link_to "Back to non compliance impacts", non_compliance_impacts_path %>
+
+  <%= button_to "Destroy this non compliance impact", @non_compliance_impact, method: :delete %>
+</div>

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @reputation_damage_impact %>
+
+<div>
+  <%= link_to "Edit this reputation damage impact", edit_reputation_damage_impact_path(@reputation_damage_impact) %> |
+  <%= link_to "Back to reputation damage impacts", reputation_damage_impacts_path %>
+
+  <%= button_to "Destroy this reputation damage impact", @reputation_damage_impact, method: :delete %>
+</div>

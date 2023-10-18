@@ -1,0 +1,1 @@
+json.partial! "reputation_damage_impacts/reputation_damage_impact", reputation_damage_impact: @reputation_damage_impact

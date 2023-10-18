@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @loi_impact %>
+
+<div>
+  <%= link_to "Edit this loi impact", edit_loi_impact_path(@loi_impact) %> |
+  <%= link_to "Back to loi impacts", loi_impacts_path %>
+
+  <%= button_to "Destroy this loi impact", @loi_impact, method: :delete %>
+</div>

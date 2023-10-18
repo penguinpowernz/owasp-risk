@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @financial_damage_impact %>
+
+<div>
+  <%= link_to "Edit this financial damage impact", edit_financial_damage_impact_path(@financial_damage_impact) %> |
+  <%= link_to "Back to financial damage impacts", financial_damage_impacts_path %>
+
+  <%= button_to "Destroy this financial damage impact", @financial_damage_impact, method: :delete %>
+</div>

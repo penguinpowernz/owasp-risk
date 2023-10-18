@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @loav_impact %>
+
+<div>
+  <%= link_to "Edit this loav impact", edit_loav_impact_path(@loav_impact) %> |
+  <%= link_to "Back to loav impacts", loav_impacts_path %>
+
+  <%= button_to "Destroy this loav impact", @loav_impact, method: :delete %>
+</div>

@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Loc impacts</h1>
+
+<div id="loc_impacts">
+  <% @loc_impacts.each do |loc_impact| %>
+    <%= render loc_impact %>
+    <p>
+      <%= link_to "Show this loc impact", loc_impact %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New loc impact", new_loc_impact_path %>

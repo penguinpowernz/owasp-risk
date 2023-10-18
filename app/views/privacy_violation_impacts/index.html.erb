@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Privacy violation impacts</h1>
+
+<div id="privacy_violation_impacts">
+  <% @privacy_violation_impacts.each do |privacy_violation_impact| %>
+    <%= render privacy_violation_impact %>
+    <p>
+      <%= link_to "Show this privacy violation impact", privacy_violation_impact %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New privacy violation impact", new_privacy_violation_impact_path %>

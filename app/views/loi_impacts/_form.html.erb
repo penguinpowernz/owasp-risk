@@ -1,0 +1,28 @@
+<%= form_with(model: loi_impact) do |form| %>
+  <% if loi_impact.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(loi_impact.errors.count, "error") %> prohibited this loi_impact from being saved:</h2>
+
+      <ul>
+        <% loi_impact.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group mb-3" style="width: 500px">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group mb-3" style="width: 500px">
+    <%= form.label :score, class: "form-label" %>
+    <%= form.number_field :score, class: "form-control" %>
+  </div>
+
+  <div class="form-group mb-3" style="width: 500px">
+    <%= form.submit "Submit", class: "btn btn-primary" %>
+    <%= link_to "Cancel", "javascript:history.back()", class: "btn btn-danger" %>
+  </div>
+<% end %>

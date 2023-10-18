@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Reputation damage impacts</h1>
+
+<div id="reputation_damage_impacts">
+  <% @reputation_damage_impacts.each do |reputation_damage_impact| %>
+    <%= render reputation_damage_impact %>
+    <p>
+      <%= link_to "Show this reputation damage impact", reputation_damage_impact %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New reputation damage impact", new_reputation_damage_impact_path %>

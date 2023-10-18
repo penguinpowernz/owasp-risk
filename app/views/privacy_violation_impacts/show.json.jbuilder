@@ -1,0 +1,1 @@
+json.partial! "privacy_violation_impacts/privacy_violation_impact", privacy_violation_impact: @privacy_violation_impact

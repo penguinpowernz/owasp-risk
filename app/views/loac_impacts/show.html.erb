@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @loac_impact %>
+
+<div>
+  <%= link_to "Edit this loac impact", edit_loac_impact_path(@loac_impact) %> |
+  <%= link_to "Back to loac impacts", loac_impacts_path %>
+
+  <%= button_to "Destroy this loac impact", @loac_impact, method: :delete %>
+</div>

@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Loi impacts</h1>
+
+<div id="loi_impacts">
+  <% @loi_impacts.each do |loi_impact| %>
+    <%= render loi_impact %>
+    <p>
+      <%= link_to "Show this loi impact", loi_impact %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New loi impact", new_loi_impact_path %>

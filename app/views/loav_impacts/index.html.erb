@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Loav impacts</h1>
+
+<div id="loav_impacts">
+  <% @loav_impacts.each do |loav_impact| %>
+    <%= render loav_impact %>
+    <p>
+      <%= link_to "Show this loav impact", loav_impact %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New loav impact", new_loav_impact_path %>

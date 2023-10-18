@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @privacy_violation_impact %>
+
+<div>
+  <%= link_to "Edit this privacy violation impact", edit_privacy_violation_impact_path(@privacy_violation_impact) %> |
+  <%= link_to "Back to privacy violation impacts", privacy_violation_impacts_path %>
+
+  <%= button_to "Destroy this privacy violation impact", @privacy_violation_impact, method: :delete %>
+</div>
