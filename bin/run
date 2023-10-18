@@ -1,0 +1,9 @@
+#!/bin/bash
+
+docker run --name owasp-risk \
+    -p 3000:3000 \
+    -v "$(pwd):/app" \
+    -it \
+    -w /app \
+    ruby \
+    bin/docker-entrypoint rails server -b 0.0.0.0;
