@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="float-end card">
+  <%= link_to "Edit this project", edit_project_path(@project), class: "d-inline-block bg-success btn" %>
+  <%= button_to "Destroy this project", @project, method: :delete, class: "d-inline-block bg-danger btn" %>
+</div>
+
+<h1><%= @project.name %></h1>
+
+
+
+<h2>Vulnerabilities</h2>
+<%= render partial: "vulnerabilities/table", locals: { vulnerabilities: @project.vulnerabilities, only: [], except: [] } %>
+
+<h2>Risks</h2>
+<%= render partial: "risks/table", locals: { risks: @project.vulnerabilities.all.map {|v| v.risks }.flatten } %>

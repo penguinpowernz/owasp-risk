@@ -1,0 +1,18 @@
+<div id="<%= dom_id project %>" class="card mb-2 me-2 d-inline-block bg-black" style="min-width: 300px">
+  <div class="card-header">
+    <h3><%= link_to project.name, project %></h3>
+  </div>
+  <div class="card-body">
+    <p><%= project.vulnerabilities.count %> Vulnerabilities</p>
+
+    <h5>Risks</h5>
+    <div class="list-group">
+      <a href="<%= risks_path(project_id: project.id, severity: -1) %>" class="ps-2 p-1 list-group-item list-group-item-action fw-bold bg-secondary"><%= project.vulnerabilities.select(:id).all.map {|v| v.risks.where(severity: 0).count }.sum %> Incomplete</a>
+      <a href="<%= risks_path(project_id: project.id, severity: 9) %>" class="ps-2 p-1 list-group-item list-group-item-action fw-bold bg-white text-danger"><%= project.vulnerabilities.select(:id).all.map {|v| v.risks.where(severity: 9).count }.sum %> Critical</a>
+      <a href="<%= risks_path(project_id: project.id, severity: 6) %>" class="ps-2 p-1 list-group-item list-group-item-action fw-bold bg-danger"><%= project.vulnerabilities.select(:id).all.map {|v| v.risks.where(severity: 6).count }.sum %> High</a>
+      <a href="<%= risks_path(project_id: project.id, severity: 4) %>" class="ps-2 p-1 list-group-item list-group-item-action bg-warning text-bg-warning"><%= project.vulnerabilities.select(:id).all.map {|v| v.risks.where(severity: 4).count }.sum %> Medium</a>
+      <a href="<%= risks_path(project_id: project.id, severity: [2, 3]) %>" class="ps-2 p-1 list-group-item list-group-item-action bg-primary"><%= project.vulnerabilities.select(:id).all.map {|v| v.risks.where(severity: [2, 3]).count }.sum %> Low</a>
+      <a href="<%= risks_path(project_id: project.id, severity: 1) %>" class="ps-2 p-1 list-group-item list-group-item-action bg-success"><%= project.vulnerabilities.select(:id).all.map {|v| v.risks.where(severity: 1).count }.sum %> Note</a>
+    </div>
+  </div>
+</div>
