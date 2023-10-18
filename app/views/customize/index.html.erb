@@ -1,0 +1,264 @@
+<h1>Customize Scoring</h1>
+
+<h2>Threat Agents</h2>
+<div class="row">
+  <div class="col-md-3 mb-3"> 
+    <div class="card">
+      <div class="card-body">
+        <div class="float-end"><%= link_to "Add", new_agent_skill_path, class: "btn btn-primary" %></div>
+        <h3>Skills</h3>
+
+        <table class="table table-small table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Score</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% AgentSkill.all.each do |skill| %>
+              <tr>
+                <td><%= skill.name %></td>
+                <td><%= skill.score %></td>
+                <td class="text-nowrap" width=1>
+                  <%= link_to "S", skill, class: "btn p-1 btn-sm btn-primary" %>
+                  <%= link_to "E", edit_agent_skill_path(skill), class: "btn p-1 btn-sm btn-success" %>
+                  <%= link_to "D", skill, method: :delete, data: { confirm: 'Are you sure you want to delete this skill?' }, class: "btn p-1 btn-sm btn-danger" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-3"> 
+    <div class="card">
+      <div class="card-body">
+        <div class="float-end"><%= link_to "Add", new_agent_motive_path, class: "btn btn-primary" %></div>
+        <h3>Motives</h3>
+
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Score</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% AgentMotive.all.each do |agent_motive| %>
+              <tr>
+                <td><%= agent_motive.name %></td>
+                <td><%= agent_motive.score %></td>
+                <td class="text-nowrap" width=1>
+                  <%= link_to "S", agent_motive, class: "btn p-1 btn-sm btn-primary" %>
+                  <%= link_to "E", edit_agent_motive_path(agent_motive), class: "btn p-1 btn-sm btn-success" %>
+                  <%= link_to "D", agent_motive, method: :delete, data: { confirm: 'Are you sure you want to delete this agent motive?' }, class: "btn p-1 btn-sm btn-danger" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-3"> 
+    <div class="card">
+      <div class="card-body">
+        <div class="float-end"><%= link_to "Add", new_agent_size_path, class: "btn btn-primary" %></div>
+        <h3>Size</h3>
+
+        <table class="table table-small table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Score</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% AgentSize.all.each do |agent_size| %>
+              <tr>
+                <td><%= agent_size.name %></td>
+                <td><%= agent_size.score %></td>
+                <td class="text-nowrap" width=1>
+                  <%= link_to "S", agent_size, class: "btn p-1 btn-sm btn-primary" %>
+                  <%= link_to "E", edit_agent_size_path(agent_size), class: "btn p-1 btn-sm btn-success" %>
+                  <%= link_to "D", agent_size, method: :delete, data: { confirm: 'Are you sure you want to delete this agent size?' }, class: "btn p-1 btn-sm btn-danger" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-3"> 
+    <div class="card">
+      <div class="card-body">
+        <div class="float-end"><%= link_to "Add", new_agent_opportunity_path, class: "btn btn-primary" %></div>
+        <h3>Opportunity</h3>
+
+        <table class="table table-small table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Score</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% AgentOpportunity.all.each do |agent_opportunity| %>
+              <tr>
+                <td><%= agent_opportunity.name %></td>
+                <td><%= agent_opportunity.score %></td>
+                <td class="text-nowrap" width=1>
+                  <%= link_to "S", agent_opportunity, class: "btn p-1 btn-sm btn-primary" %>
+                  <%= link_to "E", edit_agent_opportunity_path(agent_opportunity), class: "btn p-1 btn-sm btn-success" %>
+                  <%= link_to "D", agent_opportunity, method: :delete, data: { confirm: 'Are you sure you want to delete this agent opportunity?' }, class: "btn p-1 btn-sm btn-danger" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>Vulnerability Factors</h2>
+
+<div class="row">
+  <div class="col-md-3 mb-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="float-end"><%= link_to "Add", new_vulnerability_eod_path, class: "btn btn-primary" %></div>
+        <h3>Ease of Discovery</h3>
+
+        <table class="table table-small table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Score</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% VulnerabilityEod.all.each do |vulnerability_factor| %>
+              <tr>
+                <td><%= vulnerability_factor.name %></td>
+                <td><%= vulnerability_factor.score %></td>
+                <td class="text-nowrap" width=1>
+                  <%= link_to "S", vulnerability_factor, class: "btn p-1 btn-sm btn-primary" %>
+                  <%= link_to "E", edit_vulnerability_eod_path(vulnerability_factor), class: "btn p-1 btn-sm btn-success" %>
+                  <%= link_to "D", vulnerability_factor, method: :delete, data: { confirm: 'Are you sure you want to delete this vulnerability factor?' }, class: "btn p-1 btn-sm btn-danger" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="float-end"><%= link_to "Add", new_vulnerability_eo_e_path, class: "btn btn-primary" %></div>
+        <h3>Ease of Exploit</h3>
+
+        <table class="table table-small table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Score</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% VulnerabilityEoE.all.each do |vulnerability_factor| %>
+              <tr>
+                <td><%= vulnerability_factor.name %></td>
+                <td><%= vulnerability_factor.score %></td>
+                <td class="text-nowrap" width=1>
+                  <%= link_to "S", vulnerability_factor, class: "btn p-1 btn-sm btn-primary" %>
+                  <%= link_to "E", edit_vulnerability_eo_e_path(vulnerability_factor), class: "btn p-1 btn-sm btn-success" %>
+                  <%= link_to "D", vulnerability_factor, method: :delete, data: { confirm: 'Are you sure you want to delete this vulnerability factor?' }, class: "btn p-1 btn-sm btn-danger" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="float-end"><%= link_to "Add", new_vulnerability_awareness_path, class: "btn btn-primary" %></div>
+        <h3>Awareness</h3>
+
+        <table class="table table-small table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Score</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% VulnerabilityAwareness.all.each do |vulnerability_factor| %>
+              <tr>
+                <td><%= vulnerability_factor.name %></td>
+                <td><%= vulnerability_factor.score %></td>
+                <td class="text-nowrap" width=1>
+                  <%= link_to "S", vulnerability_factor, class: "btn p-1 btn-sm btn-primary" %>
+                  <%= link_to "E", edit_vulnerability_awareness_path(vulnerability_factor), class: "btn p-1 btn-sm btn-success" %>
+                  <%= link_to "D", vulnerability_factor, method: :delete, data: { confirm: 'Are you sure you want to delete this vulnerability factor?' }, class: "btn p-1 btn-sm btn-danger" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="float-end"><%= link_to "Add", new_vulnerability_id_path, class: "btn btn-primary" %></div>
+        <h3>Intrusion Detection</h3>
+
+        <table class="table table-small table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Score</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% VulnerabilityId.all.each do |vulnerability_factor| %>
+              <tr>
+                <td><%= vulnerability_factor.name %></td>
+                <td><%= vulnerability_factor.score %></td>
+                <td class="text-nowrap" width=1>
+                  <%= link_to "S", vulnerability_factor, class: "btn p-1 btn-sm btn-primary" %>
+                  <%= link_to "E", edit_vulnerability_id_path(vulnerability_factor), class: "btn p-1 btn-sm btn-success" %>
+                  <%= link_to "D", vulnerability_factor, method: :delete, data: { confirm: 'Are you sure you want to delete this vulnerability factor?' }, class: "btn p-1 btn-sm btn-danger" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
