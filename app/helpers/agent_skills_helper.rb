@@ -1,0 +1,2 @@
+module AgentSkillsHelper
+end

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @agent_opportunity %>
+
+<div>
+  <%= link_to "Edit this agent opportunity", edit_agent_opportunity_path(@agent_opportunity) %> |
+  <%= link_to "Back to agent opportunities", agent_opportunities_path %>
+
+  <%= button_to "Destroy this agent opportunity", @agent_opportunity, method: :delete %>
+</div>

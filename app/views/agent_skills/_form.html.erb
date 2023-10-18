@@ -1,0 +1,28 @@
+<%= form_with(model: agent_skill) do |form| %>
+  <% if agent_skill.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(agent_skill.errors.count, "error") %> prohibited this agent_skill from being saved:</h2>
+
+      <ul>
+        <% agent_skill.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group mb-3" style="width: 500px">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group mb-3" style="width: 500px">
+    <%= form.label :score, class: "form-label" %>
+    <%= form.number_field :score, class: "form-control" %>
+  </div>
+
+  <div class="form-group mb-3" style="width: 500px">
+    <%= form.submit "Submit", class: "btn btn-primary" %>
+    <%= link_to "Cancel", "javascript:history.back()", class: "btn btn-danger" %>
+  </div>
+<% end %>

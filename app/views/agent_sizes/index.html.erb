@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Agent sizes</h1>
+
+<div id="agent_sizes">
+  <% @agent_sizes.each do |agent_size| %>
+    <%= render agent_size %>
+    <p>
+      <%= link_to "Show this agent size", agent_size %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New agent size", new_agent_size_path %>

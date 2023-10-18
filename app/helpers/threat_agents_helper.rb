@@ -1,0 +1,2 @@
+module ThreatAgentsHelper
+end

@@ -1,0 +1,37 @@
+<%= form_with(model: threat_agent) do |form| %>
+  <% if threat_agent.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(threat_agent.errors.count, "error") %> prohibited this threat_agent from being saved:</h2>
+
+      <ul>
+        <% threat_agent.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :desc, style: "display: block" %>
+    <%= form.text_area :desc %>
+  </div>
+
+  <div>
+    <%= form.label :skill_id, "How technically skilled is this group of threat agents?", style: "display: block" %>
+    <%= form.select :skill_id, @skills.map { |s| [s.name, s.id] } %>
+  </div>
+
+  <div>
+    <%= form.label :size_id, "How large is this group of threat agents?", style: "display: block" %>
+    <%= form.select :size_id, @sizes.map { |s| [s.name, s.id] } %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

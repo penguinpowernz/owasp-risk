@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @agent_size %>
+
+<div>
+  <%= link_to "Edit this agent size", edit_agent_size_path(@agent_size) %> |
+  <%= link_to "Back to agent sizes", agent_sizes_path %>
+
+  <%= button_to "Destroy this agent size", @agent_size, method: :delete %>
+</div>

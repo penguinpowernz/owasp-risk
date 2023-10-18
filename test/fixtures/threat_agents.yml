@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  desc: MyText
+  skill_id: 1
+  motive_id: 1
+  size_id: 1
+  opportunity_id: 1
+
+two:
+  name: MyString
+  desc: MyText
+  skill_id: 1
+  motive_id: 1
+  size_id: 1
+  opportunity_id: 1

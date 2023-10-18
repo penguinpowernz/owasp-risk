@@ -1,0 +1,30 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Agent motives</h1>
+
+<div id="agent_motives">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Score</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @agent_motives.each do |agent_motive| %>
+        <tr>
+          <td><%= agent_motive.name %></td>
+          <td><%= agent_motive.score %></td>
+          <td>
+            <%= link_to "Show", agent_motive %>
+            <%= link_to "Edit", edit_agent_motive_path(agent_motive) %>
+            <%= link_to "Delete", agent_motive, method: :delete, data: { confirm: 'Are you sure you want to delete this agent motive?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to "New agent motive", new_agent_motive_path %>

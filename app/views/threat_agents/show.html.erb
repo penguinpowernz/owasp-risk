@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @threat_agent %>
+
+<div>
+  <%= link_to "Edit this threat agent", edit_threat_agent_path(@threat_agent) %> |
+  <%= link_to "Back to threat agents", threat_agents_path %>
+
+  <%= button_to "Destroy this threat agent", @threat_agent, method: :delete %>
+</div>

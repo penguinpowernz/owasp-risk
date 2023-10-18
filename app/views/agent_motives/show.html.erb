@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @agent_motive %>
+
+<div>
+  <%= link_to "Edit this agent motive", edit_agent_motive_path(@agent_motive) %> |
+  <%= link_to "Back to agent motives", agent_motives_path %>
+
+  <%= button_to "Destroy this agent motive", @agent_motive, method: :delete %>
+</div>

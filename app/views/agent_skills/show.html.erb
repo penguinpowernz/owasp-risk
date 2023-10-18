@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @agent_skill %>
+
+<div>
+  <%= link_to "Edit this agent skill", edit_agent_skill_path(@agent_skill) %> |
+  <%= link_to "Back to agent skills", agent_skills_path %>
+
+  <%= button_to "Destroy this agent skill", @agent_skill, method: :delete %>
+</div>
